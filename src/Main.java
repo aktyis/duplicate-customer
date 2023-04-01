@@ -66,7 +66,6 @@ public class Main implements Callable<Boolean> {
     for (Future<Boolean> fut : list) {
       try {
         fut.get();
-//        System.out.println(LocalDateTime.now() + "::" + fut.get());
       } catch (InterruptedException | ExecutionException e) {
         e.printStackTrace();
       }
@@ -145,7 +144,6 @@ public class Main implements Callable<Boolean> {
   public Boolean call() {
     //Code block to validate and check duplicate customer
     while (!customerStack.empty()) {
-      //System.out.println("looping ***" + Thread.currentThread().getName());
       Customer customer;
       try {
         customer = customerStack.pop();
@@ -154,15 +152,12 @@ public class Main implements Callable<Boolean> {
         break;
       }
       if (customer.validate()) {
-        //System.out.println("valid");
-
         if (validCustomerMap.containsKey(keyBuilder(customer))) {
           inValidCustomerStack.push(customer);
         } else {
           validCustomerMap.put(keyBuilder(customer), customer);
         }
       } else {
-        //System.out.println("invalid");
         inValidCustomerStack.push(customer);
       }
     }
